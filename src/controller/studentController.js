@@ -38,3 +38,24 @@ export const updateStudent = (req, res) => {
         res.status(404).send();
     }
 }
+
+export const addScore = (req, res) => {
+    const success = repo.addScore(+req.params.id, req.body.examName, req.body.score);
+    if (success) {
+        res.status(204).send();
+    } else {
+        res.status(404).json({
+            timestamp: new Date().toISOString(),
+            status: 404,
+            error: "Not Found",
+            message: "student not found",
+            path: `/score/student/${req.params.id}`
+        });
+    }
+}
+
+export const findStudentsByName = (req, res) => {
+    const students = repo.findByName(req.params.name);
+    console.log(students);
+    res.json(students);
+}

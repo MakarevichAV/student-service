@@ -34,11 +34,19 @@ export const updateStudent = (id, data) => {
 }
 
 export const addScore = (id, exam, score) => {
-    // TODO: implement score addition logic
+    const student = students.get(id);
+    if (student) {
+        Object.assign(student.scores, {[exam]: score});
+        return true;
+    } else {
+        return false;
+    }
 }
 
 export const findByName = (name) => {
-    // TODO: implement student retrieval by name logic
+    return Array.from(students.values())
+        .filter(student => student.name === name)
+        .map(({password, ...studentWithoutPassword}) => studentWithoutPassword);
 }
 
 export const countByNames = (names) => {
