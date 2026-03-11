@@ -56,6 +56,18 @@ export const addScore = (req, res) => {
 
 export const findStudentsByName = (req, res) => {
     const students = repo.findByName(req.params.name);
-    console.log(students);
+    res.json(students);
+}
+
+export const studentsCountByNames = (req, res) => {
+    let count = 0
+    if (req.query.names) {
+        count = repo.countByNames(req.query.names)
+    }
+    res.status(200).send(count);
+}
+
+export const findStudentByMinScore = (req, res) => {
+    const students = repo.findByMinScore(req.params.exam, +req.params.minScore);
     res.json(students);
 }

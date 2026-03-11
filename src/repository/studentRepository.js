@@ -50,9 +50,21 @@ export const findByName = (name) => {
 }
 
 export const countByNames = (names) => {
-    // TODO: implement student count by name logic
+    let count = 0;
+    for (const name of names) {
+        count += Array.from(students.values()).filter(student => student.name === name).length;
+    }
+    return count;
 }
 
 export const findByMinScore = (exam, minScore) => {
-    // TODO: implement student retrieval by minimum score logic
+    const result = [];
+    for (const student of students.values()) {
+        console.log(student.scores[exam])
+        if (student.scores[exam] && student.scores[exam] >= minScore) {
+            const {password, ...studentWithoutPassword} = student;
+            result.push(studentWithoutPassword);
+        }
+    }
+    return result;
 }
