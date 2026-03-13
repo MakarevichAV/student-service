@@ -45,14 +45,13 @@ export const addScore = (id, exam, score) => {
 
 export const findByName = (name) => {
     return Array.from(students.values())
-        .filter(student => student.name === name)
-        .map(({password, ...studentWithoutPassword}) => studentWithoutPassword);
+        .filter(student => student.name.toLowerCase() === name.toLowerCase());
 }
 
 export const countByNames = (names) => {
     let count = 0;
     for (const name of names) {
-        count += Array.from(students.values()).filter(student => student.name === name).length;
+        count += Array.from(students.values()).filter(student => student.name.toLowerCase() === name.toLowerCase()).length;
     }
     return count;
 }

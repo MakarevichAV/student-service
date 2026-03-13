@@ -55,14 +55,16 @@ export const addScore = (req, res) => {
 }
 
 export const findStudentsByName = (req, res) => {
-    const students = repo.findByName(req.params.name);
+    const students = repo.findByName(req.params.name).map(({password, ...studentWithoutPassword}) => studentWithoutPassword);
     res.json(students);
 }
 
 export const studentsCountByNames = (req, res) => {
-    let count = 0
-    if (req.query.names) {
-        count = repo.countByNames(req.query.names)
+    let count = 0;
+    const names = req.query.names;
+    const list = Array.isArray(names) ? names : [names];
+    if (names) {
+        count = repo.countByNames(list)
     }
     res.status(200).send(count);
 }
