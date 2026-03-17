@@ -40,8 +40,13 @@ export const addScore = async (id, exam, score) => {
 }
 
 export const findByName = async (name) => {
-    const data = await collection.find({name: new RegExp(`^${name}$`, "i")}).toArray();
-    return data.map(renameId)
+    // const data = await collection.find({name: new RegExp(`^${name}$`, "i")}).toArray();
+    const students = [];
+    const cursor = await collection.find({name: new RegExp(`^${name}$`, "i")});
+    while(await cursor.hasNext()) {
+        students.push(renameId(await cursor.next()));
+    }
+    return students;
 }
 
 export const countByNames = async (names) => {
@@ -53,7 +58,13 @@ export const countByNames = async (names) => {
 }
 
 export const findByMinScore = async (exam, minScore) => {
-    return (await collection.find({[`scores.${exam}`]: {$gte: minScore}}).toArray()).map(renameId);
+    // return (await collection.find({[`scores.${exam}`]: {$gte: minScore}}).toArray()).map(renameId);
+    const students = [];
+    const cursor = await collection.find({[`scores.${exam}`]: {$gte: minScore}});
+    for await (const student of cursor) {
+        students.push(renameId(student));
+    }
+    return students;
 }
 
 function renameId(student) {
