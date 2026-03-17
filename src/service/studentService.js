@@ -9,7 +9,11 @@ export const addStudent = async ({id, name, password}) => {
 }
 
 export const findStudent = async (id) => {
-    // TODO
+    const student = await repo.findStudentById(id)
+    if (student) {
+        student.password = undefined;
+    }
+    return student
 }
 
 export const deleteStudent = async (id) => {
