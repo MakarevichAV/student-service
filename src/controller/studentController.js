@@ -77,9 +77,7 @@ export const studentsCountByNames = async (req, res) => {
 
     const names = Array.isArray(req.query.names) ? req.query.names : [req.query.names];
     // const list = Array.isArray(names) ? names : [names];
-
     const count = await service.countByNames(names)
-
     res.status(200).send(count);
 }
 
