@@ -5,23 +5,23 @@ export function createStudent(student) {
 }
 
 export function findStudentById(id) {
-    return Student.findById(id).lean().exec()
+    return Student.findById(id).exec()
 }
 
 export function deleteStudentById(id) {
-    return Student.findByIdAndDelete(id).lean().exec()
+    return Student.findByIdAndDelete(id).exec()
 }
 
 export function updateStudent(id, data) {
-    return Student.findByIdAndUpdate(id, data, {new: true}).lean().exec()
+    return Student.findByIdAndUpdate(id, data, {new: true}).exec()
 }
 
 export function updateScore(id, exam, score) {
-    return Student.findByIdAndUpdate(id, {$set: {[`scores.${exam}`]: score}}).lean().exec()
+    return Student.findByIdAndUpdate(id, {$set: {[`scores.${exam}`]: score}}).exec()
 }
 
 export function findStudentsByName(name) {
-    return Student.find({name: new RegExp(`^${name}$`,  'i')}).lean().exec()
+    return Student.find({name: new RegExp(`^${name}$`,  'i')}).exec()
 }
 
 export function countStudentsByName(names) {
@@ -32,7 +32,7 @@ export function countStudentsByName(names) {
 }
 
 export function findStudentsMinScore(exam, minScore) {
-    return Student.find({[`scores.${exam}`]: {$gte: minScore}}).lean().exec()
+    return Student.find({[`scores.${exam}`]: {$gte: minScore}}).exec()
 }
 
 // let collection;
