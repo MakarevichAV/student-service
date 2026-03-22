@@ -13,16 +13,8 @@ const serviceMock = {
   findByMinScore: jest.fn(),
 };
 
-await jest.unstable_mockModule('../service/studentService.js', () => ({
-  addStudent: serviceMock.addStudent,
-  findStudent: serviceMock.findStudent,
-  deleteStudent: serviceMock.deleteStudent,
-  updateStudent: serviceMock.updateStudent,
-  addScore: serviceMock.addScore,
-  findByName: serviceMock.findByName,
-  countByNames: serviceMock.countByNames,
-  findByMinScore: serviceMock.findByMinScore,
-}));
+await jest.unstable_mockModule('../service/studentService.js', () => serviceMock);
+
 
 const studentRouter = (await import('../routes/studentRoutes.js')).default;
 

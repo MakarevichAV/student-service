@@ -11,7 +11,7 @@ const repoMock = {
   findStudentsMinScore: jest.fn(),
 };
 
-jest.unstable_mockModule('../repository/studentRepository.js', () => repoMock);
+await jest.unstable_mockModule('../repository/studentRepository.js', () => repoMock);
 
 
 const studentService = await import('../service/studentService.js');
